@@ -12,27 +12,8 @@ router.get('/detl/:id',getuserdetails)
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-
 const app = express();
-// You can use any desired port number
 
-// MySQL configuration
-// const pool = mysql.createConnection({
-//   host:process.env.host,
-//   user:process.env.username,
-//   password:process.env.password,
-//   database:process.env.DATABASE,
-// });
-
-// // Connect to MySQL
-// pool.connect((err) => {
-//   if (err) {
-//     console.error('Error connecting to MySQL: ', err);
-//   } else {
-//     console.log('Connected to MySQL database.');
-//   }
-// });
 
 const pool = require('../../databaseconnection')
 
@@ -51,7 +32,7 @@ router.post('/register', (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     } else if (results.length > 0) {
       // Email is already registered
-      res.status(409).json({ error: 'Email already exists' });
+      res.status(400).json({ error: 'Email already exists' });
     } else {
       // Email is unique, proceed with registration
       const newUser = { user_fname, user_lname, phone,address,email,user_pasword,app_user,user_profile_pic };
@@ -60,7 +41,7 @@ router.post('/register', (req, res) => {
           console.error('Error inserting user into database: ', err);
           res.status(500).json({ error: 'Internal server error' });
         } else {
-          res.status(201).json({ message: 'User registered successfully' });
+          res.status(200).json({ message: 'User registered successfully' });
         }
       });
     }
