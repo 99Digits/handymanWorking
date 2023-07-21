@@ -1,10 +1,4 @@
-const mysql = require("mysql");
-var pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "handyman",
-});
+const pool = require('../../databaseconnection')
  module.exports={
     selectSubscrptionService:(id,callback)=>{
         pool.query(`SELECT sub_slno	,subcr_detl

@@ -8,7 +8,7 @@
 //   password:process.env.password,
 //   database:process.env.DATABASE,
 // });
-// const pool = require('../.././databaseconnection 2')
+const pool = require('../../databaseconnection')
 const filename = require('./serviceRegistration.router')
 
 module.exports = {

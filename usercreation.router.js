@@ -18,23 +18,21 @@ const app = express();
 // You can use any desired port number
 
 // MySQL configuration
-// const pool = mysql.createConnection({
-//   host:process.env.host,
-//   user:process.env.username,
-//   password:process.env.password,
-//   database:process.env.DATABASE,
-// });
+const connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database:"handyman",
+});
 
-// // Connect to MySQL
-// pool.connect((err) => {
-//   if (err) {
-//     console.error('Error connecting to MySQL: ', err);
-//   } else {
-//     console.log('Connected to MySQL database.');
-//   }
-// });
-
-const pool = require('../../databaseconnection')
+// Connect to MySQL
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL: ', err);
+  } else {
+    console.log('Connected to MySQL database.');
+  }
+});
 
 // Middleware
 app.use(bodyParser.json());
@@ -45,7 +43,7 @@ router.post('/register', (req, res) => {
   const { user_fname, user_lname, phone,address,email,user_pasword,app_user,user_profile_pic } = req.body;
 
   // Check if email is already registered
-  pool.query('SELECT * FROM user_creation WHERE email = ?', [email], (err, results) => {
+  connection.query('SELECT * FROM user_creation WHERE email = ?', [email], (err, results) => {
     if (err) {
       console.error('Error querying database: ', err);
       res.status(500).json({ error: 'Internal server error' });
@@ -55,7 +53,7 @@ router.post('/register', (req, res) => {
     } else {
       // Email is unique, proceed with registration
       const newUser = { user_fname, user_lname, phone,address,email,user_pasword,app_user,user_profile_pic };
-      pool.query('INSERT INTO user_creation SET ?', newUser, (err, result) => {
+      connection.query('INSERT INTO user_creation SET ?', newUser, (err, result) => {
         if (err) {
           console.error('Error inserting user into database: ', err);
           res.status(500).json({ error: 'Internal server error' });
