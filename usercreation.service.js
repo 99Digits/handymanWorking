@@ -1,14 +1,14 @@
-// const mysql = require("mysql");
-// const pool = mysql.createConnection({
-//   host:process.env.host,
-//   user:process.env.username,
-//   password:process.env.password,
-//   database:process.env.DATABASE,
-// });
+const mysql = require("mysql");
+const pool = mysql.createConnection({
+  host:process.env.host,
+  user:process.env.username,
+  password:process.env.password,
+  database:process.env.DATABASE,
+});
 
 
 
-const pool = require('../../databaseconnection')
+// const pool = require('./databaseconnection');
 
 module.exports={
     insertuser:(data,callback)=>{
