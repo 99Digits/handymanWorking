@@ -54,7 +54,7 @@ module.exports={
                 })
             }
             else if(results.length==0){
-                return res.status(500).json({
+                return res.status(401).json({
                     success:1,
                     message:"Employee email and password does not match"
                 })
