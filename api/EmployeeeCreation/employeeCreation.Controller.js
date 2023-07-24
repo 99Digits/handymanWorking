@@ -53,11 +53,9 @@ module.exports={
                     message:err
                 })
             }
-            else if(results.length == 0){
-                return res.status(401).json({
-                    success:0,
-                    message:"Employee email and password does not match"
-                })
+            else if(results.length==0){
+                return res.status(203).json("Employee email and password does not match"
+                )
             }
             else{
                 const token = jwt.sign({
@@ -65,7 +63,7 @@ module.exports={
                  },'super')
      
                  return res.status(200).json({
-                  
+                  success:2,
                   message:results ,
                   token:token
                 })

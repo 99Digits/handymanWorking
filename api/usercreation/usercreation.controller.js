@@ -64,14 +64,14 @@ module.exports ={
         getuserloginpassword(body,(err,results)=>{
               if(err){
                 return res.status(400).json({
-                    success:'0',
+                    success:0,
                     message:err
                 })
             }
 
             else if(results.length==0){
                 return res.status(200).json({
-                    success:'1',
+                    success:1,
                     message:"username and password id does not match"
                 })
             }
@@ -81,7 +81,7 @@ module.exports ={
                },'super')
    
                return res.status(200).json({
-                
+                success:2,
                 message:results ,
                 token:token
               })
