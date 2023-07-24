@@ -13,13 +13,13 @@ const storage = multer.diskStorage({
       cb(null,filePath) // Uploads will be stored in the 'uploads' folder
     },
     filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+      cb(null, file.filename + '-' + Date.now() + path.extname(file.originalname))
     }
   });
 
   const upload = multer({ storage: storage });
 
-  router.post('/upload/:filename', upload.single('image'), (req, res) => {
+  router.post('/upload', upload.single('image'), (req, res) => {
     
     if (!req.file) {
       return res.status(400).json({ error: 'No image uploaded' });
