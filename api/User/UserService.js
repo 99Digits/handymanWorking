@@ -19,7 +19,7 @@ function checkIfEmailExists(email, callback) {
         callback('internal server error');
       } else {
         console.log('User created successfully');
-        callback(null, 'new employee registered successfully');
+        callback(null, 'new user registered successfully');
       }
     });
   }

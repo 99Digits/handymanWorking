@@ -53,6 +53,7 @@ const Jobmangement = require('./api/employeeJobMangement/JobMangemnt.router')
 const notifyRouter = require('./api/Notification/Notification.router');
 const subscrptionRouter= require('./api/ServiceSubcription/subscription.router')
 const employee = require('./api/Employee/Employeerouter')
+const userloginrouter = require('./api/usercreation/usercreation.router')
 //  const otpverification = require('./api/verification/otpverification.router')
 
 app.get('/',(req,res)=>{
@@ -67,6 +68,7 @@ app.use('/api/jobmangmt',Jobmangement)
 app.use('/api/notify',notifyRouter)
 app.use('/api/sebcrption',subscrptionRouter)
 app.use('/api/employee',employee)
+app.use('/api/userlogin',userloginrouter)
 
 
 
