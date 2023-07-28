@@ -4,34 +4,6 @@ const pool = require('../../databaseconnection')
 
 module.exports = {
  
-  EmployeeCreation:(req,res)=>{
-const {emp_firstname,emp_lastname, emp_phone, emp_address, emp_location,WorkAvl_from, work_avl_to,
-  experience, isuence_id, trining_course,emp_password, emp_email,emp_profile_pic,
- app_user } =req.body
-pool.query(`select * from emp_creation where emp_email = ?`,[emp_email],(err,results)=>{
-  if(err) {
-    res.status(500).json({error:'internal server error:',err});
-  }else if(results.length>0){
-    res.status(400).json({
-      success:1,
-      error:"email already exisits"});
-  }else{
-    const data = {emp_firstname,emp_lastname, emp_phone, emp_address, emp_location,WorkAvl_from, work_avl_to,
-      experience, isuence_id, trining_course,emp_password, emp_email,emp_profile_pic,
-     app_user}
-     pool.query(`insert into emp_creation set ?`,data,(err,results)=>{
-      if(err){
-        res.status(500).json({err:'internal server error:',err})
-      }else{
-        res.status(200).json({
-success:2,
-message:'new employee registred successfully'
-        })
-      }
-     })
-  }
-});
- },
 
 getEmpDetails:(id,callback)=>{
     pool.query(`select * from emp_creation`,
