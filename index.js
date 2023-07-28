@@ -63,7 +63,7 @@ app.get('/',(req,res)=>{
 app.use('/api/user',usercreationRouter)
 app.use('/api/getservicetype',servicetypeRouter)
 app.use('/api/servReg',serviceRegisterRouter)
-// app.use('/api/employee',EmployeeCreationRouter)
+app.use('/api/employee',EmployeeCreationRouter)
 app.use('/api/jobmangmt',Jobmangement)
 app.use('/api/notify',notifyRouter)
 app.use('/api/sebcrption',subscrptionRouter)
