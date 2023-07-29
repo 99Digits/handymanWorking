@@ -7,28 +7,12 @@ app.use(express.json());
 // const mysql = require("mysql");
 const http = require('http');
 const socketIO = require('socket.io');
-const auth = require('auth');
-const multer = require('multer')
-const path = require('path')
-const cors = require('cors')
-
-
-
-
 const server = http.createServer(app); // Create an instance of http.Server using Express
-
-// Set up your Express routes and middleware here
-
-
-
-
 const io = socketIO(server); // Pass the http.Server instance to Socket.IO
 
 io.on('connection', (socket) => {
   console.log('A user connected',socket.id);
-  
-  // Handle socket events here
-  
+
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
@@ -38,9 +22,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message-receive',data)
   });
 });
-
-
-
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -69,13 +50,6 @@ app.use('/api/notify',notifyRouter)
 app.use('/api/sebcrption',subscrptionRouter)
 app.use('/api/employee',employee)
 app.use('/api/userlogin',userloginrouter)
-
-
-
-
-
-  
-  
 
 
 const PORT = process.env.PORT ||5000

@@ -58,7 +58,8 @@ module.exports={
     getuserdetails:(id,callback)=>{
       pool.query(`select id , CONCAT(user_creation.user_fname,' ',user_creation.user_lname) AS customer_Name, 
       email, 
-      phone 
+      phone,
+      user_profile_pic	
       from user_creation WHERE id=?;`,
       [id],
       (error,results,feilds)=>{
