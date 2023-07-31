@@ -1,4 +1,6 @@
 const pool = require('../../databaseconnection')
+
+//email validation of user creation
 function checkIfEmailExists(email, callback) {
     pool.query('SELECT * FROM user_creation WHERE email = ?', [email], (err, results) => {
       if (err) {
@@ -11,7 +13,22 @@ function checkIfEmailExists(email, callback) {
       }
     });
   }
-  
+ 
+  //email validation user updation
+  function checkIfupdateEmailExists(data,id, callback) {
+    pool.query('SELECT id FROM user_creation WHERE email = ? AND id != ?',  [data.email, id], (err, results) => {
+      if (err) {
+        console.error('Error querying database:', err);
+        callback('internal server error');
+      } else if (results.length > 0) {
+        callback('email already exists');
+      } else {
+        callback(null);
+      }
+    });
+  }
+
+  // function of user creation
   function insertuser(data, callback) {
     pool.query(`INSERT INTO user_creation SET ?`, data, (err, results) => {
       if (err) {
@@ -24,6 +41,10 @@ function checkIfEmailExists(email, callback) {
     });
   }
 
+
+  
+  //function of user updation 
+  
   function Updateuser(data,callback){
     pool.query(`UPDATE user_creation SET ? WHERE id =?`,[data,data.id],(err,results)=>{
       console.log(data);
@@ -39,5 +60,6 @@ function checkIfEmailExists(email, callback) {
   module.exports = {
     checkIfEmailExists,
     insertuser,
-    Updateuser
+    Updateuser,
+    checkIfupdateEmailExists
   }

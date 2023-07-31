@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
    });
 
 
-
+// create user profile
 
 function userCreation(req, res) {
     const user_profile_pic	 = req.file.filename;
@@ -52,12 +52,15 @@ function userCreation(req, res) {
   });
 }
 
+
+//update user profile
+
 function userUpdation (req,res){
   const user_profile_pic	 = req.file.filename;
   const {
     user_fname, user_lname, phone,address,email,user_pasword,app_user,id
   } = req.body;
-  userservice.checkIfEmailExists(email,(err)=>{
+  userservice.checkIfupdateEmailExists(email,id,(err)=>{
     if(err){
       return res.status(500).json({error:err})
     }
