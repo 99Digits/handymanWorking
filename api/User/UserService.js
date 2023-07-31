@@ -23,8 +23,21 @@ function checkIfEmailExists(email, callback) {
       }
     });
   }
+
+  function Updateuser(data,callback){
+    pool.query(`UPDATE user_creation SET ? WHERE id =?`,[data,data.id],(err,results)=>{
+      console.log(data);
+      if(err){
+        callback('internal server error')
+      }
+      else{
+        callback(null,"profile updated successfully")
+      }
+    })
+  }
   
   module.exports = {
     checkIfEmailExists,
     insertuser,
+    Updateuser
   }

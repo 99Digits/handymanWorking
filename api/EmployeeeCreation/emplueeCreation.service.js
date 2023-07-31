@@ -5,17 +5,46 @@ const pool = require('../../databaseconnection')
 module.exports = {
  
 
-getEmpDetails:(id,callback)=>{
-    pool.query(`select * from emp_creation`,
-    [id],
-    (error, results, fields) => {
+ getEmpDetails : (id, callback) => {
+    pool.query(
+      `SELECT CONCAT(emp_firstname,' ',emp_lastname) as emp_name,
+      emp_phone,
+      emp_address,
+      emp_location,
+      emp_profile_pic,
+      emp_email,
+      isuence_id,
+      trining_course,
+      work_avl_to,
+      WorkAvl_from,
+      experience FROM emp_creation WHERE emp_id=?`,
+      [id],
+      (error, results, fields) => {
         if (error) {
           return callback(error);
         }
-        return callback(null, results);
+  
+        // Convert the emp_profile_pic buffer to a Base64-encoded string
+        const modifiedResults = results.map((item) => ({
+          emp_name: item.emp_name,
+          isuence_id: item.isuence_id,
+          experience: item.experience,
+          WorkAvl_from: item.WorkAvl_from,
+          work_avl_to: item.work_avl_to,
+          emp_address: item.emp_address,
+          emp_location: item.emp_location,
+          emp_email: item.emp_email,
+          trining_course: item.trining_course,
+          emp_phone: item.emp_phone,
+          // Decode emp_profile_pic buffer to Base64
+          emp_profile_pic: item.emp_profile_pic?.toString("base64"),
+        }));
+  
+        return callback(null, modifiedResults);
       }
-    )
- },
+    );
+  },
+
  Empupdation: (data, callback) => {
     pool.query(
       `UPDATE emp_creation SET

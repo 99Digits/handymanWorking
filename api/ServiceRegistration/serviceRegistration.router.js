@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
   });
 
 
-router.post('/insert',upload.single("image") ,insertservicereg);
+// router.post('/insert',upload.array("image") ,insertservicereg);
 router.patch('/update',serviceupdation);
 router.get('/select/:id',ServiceRegistartionselect);
 router.post('/accept',serviceAccept)

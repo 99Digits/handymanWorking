@@ -66,7 +66,17 @@ module.exports={
         if(error){
           return callback(error)
         }
-        return callback(null,results);
+
+ const modifiedResults = results.map((item) => ({
+        id: item.id,
+        customer_Name: item.customer_Name,
+        email: item.email,
+        phone: item.phone,
+        user_profile_pic: item.user_profile_pic ? `data:image/jpeg;base64,${item.user_profile_pic.toString("base64")}` : null, // Convert to data URL
+      }));
+
+
+        return callback(null,modifiedResults);
       },
       )
     }

@@ -3,7 +3,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
-const userservice = require('./UserService')
+const userservice = require('./UserService');
+const { isErrored } = require('form-data');
 
 // ... (rest of the code)
 const storage = multer.diskStorage({
@@ -15,7 +16,12 @@ const storage = multer.diskStorage({
     },
   });
   
-  const uploads = multer({ storage: storage });
+  const uploads = multer({ 
+    storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 10, // 10 MB (adjust to your needs)
+    },
+   });
 
 
 
@@ -46,6 +52,27 @@ function userCreation(req, res) {
   });
 }
 
-router.post('/Registration', uploads.single('user_profile_pic'), userCreation);
+function userUpdation (req,res){
+  const user_profile_pic	 = req.file.filename;
+  const {
+    user_fname, user_lname, phone,address,email,user_pasword,app_user,id
+  } = req.body;
+  userservice.checkIfEmailExists(email,(err)=>{
+    if(err){
+      return res.status(500).json({error:err})
+    }
+    const data = {
+      user_fname, user_lname, phone,address,email,user_pasword,app_user,user_profile_pic,id
+  };
+  userservice.Updateuser(data,(err,message)=>{
+    if(err){
+      return res.status(500).json({error:err});
+    }
+    res.json({ success: 2, message });
+  })
+  })
+}
 
+router.post('/Registration', uploads.single('user_profile_pic'), userCreation);
+router.patch('/updation',uploads.single('user_profile_pic'),userUpdation);
 module.exports = router;

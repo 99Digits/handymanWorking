@@ -25,8 +25,19 @@ function insertEmployee(data, callback) {
     }
   });
 }
-
+function updateEmployee(data, callback) {
+  pool.query(`UPDATE emp_creation SET ? WHERE emp_id =?`, [data,data.id], (err, results) => {
+    if (err) {
+      console.error('Error inserting user:', err);
+      callback('internal server error');
+    } else {
+      console.log('User created successfully');
+      callback(null, 'profile updated successfully');
+    }
+  });
+}
 module.exports = {
   checkIfEmailExists,
   insertEmployee,
+  updateEmployee
 };
