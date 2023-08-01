@@ -58,7 +58,7 @@ function EmployeeCreation(req, res) {
       emp_password,
       emp_email,
       emp_profile_pic,
-      app_user,
+      app_user
     };
 
     Employeeservice.insertEmployee(data, (err, message) => {
@@ -89,7 +89,7 @@ function EmployeeUpdation(req,res){
     app_user,
     emp_id
   } = req.body;
-Employeeservice.checkIfEmailExists(emp_email,(err,message)=>{
+Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
   if (err) {
     return res.status(500).json({ error: err });
   }
@@ -112,6 +112,7 @@ Employeeservice.checkIfEmailExists(emp_email,(err,message)=>{
   };
 
   Employeeservice.updateEmployee(data, (err, message) => {
+    console.log(data);
     if (err) {
       return res.status(500).json({ error: err });
     }
@@ -125,6 +126,6 @@ Employeeservice.checkIfEmailExists(emp_email,(err,message)=>{
 
 
 router.post('/empInsert', uploads.single('emp_profile_pic'), EmployeeCreation);
-router.patch('/update',uploads.single("emp_profile_pic"),EmployeeUpdation)
+router.patch('/update',uploads.single("emp_profile_pic"), EmployeeUpdation)
 
 module.exports = router;

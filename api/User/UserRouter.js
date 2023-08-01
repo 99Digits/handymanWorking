@@ -28,6 +28,7 @@ const storage = multer.diskStorage({
 
 function userCreation(req, res) {
     const user_profile_pic	 = req.file.filename;
+
    
   const {
     user_fname, user_lname, phone,address,email,user_pasword,app_user	
@@ -41,6 +42,7 @@ function userCreation(req, res) {
     const data = {
         user_fname, user_lname, phone,address,email,user_pasword,app_user,user_profile_pic	
     };
+
 
     userservice.insertuser(data, (err, message) => {
       if (err) {
