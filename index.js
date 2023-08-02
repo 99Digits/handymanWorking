@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 const usercreationRouter  = require('./api/User/UserRouter');
 const servicetypeRouter = require('./api/ServiceType/service.router');
-const serviceRegisterRouter = require('./api/ServiceRegistration/serviceRegistration.router')
+// const serviceRegisterRouter = require('./api/ServiceRegistration/serviceRegistration.router')
 const EmployeeCreationRouter = require('./api/EmployeeeCreation/employeecreation.router')
 const Jobmangement = require('./api/employeeJobMangement/JobMangemnt.router')
 const notifyRouter = require('./api/Notification/Notification.router');
@@ -43,7 +43,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/user',usercreationRouter)
 app.use('/api/getservicetype',servicetypeRouter)
-app.use('/api/servReg',serviceRegisterRouter)
+// app.use('/api/servReg',serviceRegisterRouter)
 app.use('/api/employee',EmployeeCreationRouter)
 app.use('/api/jobmangmt',Jobmangement)
 app.use('/api/notify',notifyRouter)
