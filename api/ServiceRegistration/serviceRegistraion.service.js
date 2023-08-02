@@ -10,104 +10,115 @@
 // });
 const pool = require('../../databaseconnection')
 const filename = require('./serviceRegistration.router')
+const multer = require('multer');
+const upload = multer({ dest:'api/images/image'});
 
 module.exports = {
-  // insertservicereg: (data, callback) => {
-  //   pool.query(
-  //     `INSERT INTO service_reg 
-  //     (user_id, ser_name_slno, serv_type_slno,serv_image,serv_time,serv_date,	serv_location,vehicle_id,vehicle_name)
-  //     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-  //     [
-  //       data.user_id,
-  //       data.ser_name_slno,
-  //       data.serv_type_slno,
-  //       data.serv_image,
-  //       data.serv_time,
-  //       data.serv_date,
-  //       data.serv_location,
-  //       data.vehicle_id,
-  //       data.vehicle_name
-        
-  //     ],
-  //     (error, results, fields) => {
-  //       if (error) {
-  //         return callback(error);
-  //       }
-  //       return callback(null, results);
-  //     }
-  //   );
-  // },
+ // Change 'uploads/' to the destination folder where you want to store the uploaded images.
 
+// ...
 
-  insertservicereg: (data, callback) => {
-    let servImagessofa = data.file.filename; // Array of sofa image data
-    let servimagestain = data.serv_image_stain // aray of satin removal image data
-    let servImageWindow = data.serv_image_window // array of window cleaning image data
-    let servImageGuttering = data.serv_image_guttering // array of guttering wash image data
-   let servImageDriveWay = data.serv_image_driveway // array of driveway pressure wash image data
-       let serNameSlnoArray  = data.ser_name_slno; // array of service name
-   console.log(serNameSlnoArray);
-   if (!Array.isArray(serNameSlnoArray)) {
-    serNameSlnoArray = [serNameSlnoArray];
-  }
-  if (!Array.isArray(servImagessofa)) {
-    // If servImages is not an array or is undefined, set it to an empty array
-    servImagessofa = [];
-  }
-  if (!Array.isArray(servimagestain)) {
-    // If servImages is not an array or is undefined, set it to an empty array
-    servimagestain = [];
-  }
-  if (!Array.isArray(servImageWindow)) {
-    // If servImages is not an array or is undefined, set it to an empty array
-    servImageWindow = [];
-  }
-  if (!Array.isArray(servImageDriveWay)) {
-    // If servImages is not an array or is undefined, set it to an empty array
-    servImageDriveWay = [];
-  }
-  if (!Array.isArray(servImageGuttering)) {
-    // If servImages is not an array or is undefined, set it to an empty array
-    servImageGuttering = [];
-  }
-   const flattenedImages = servImagessofa.map((imageUrl) => imageUrl).join(',');
-   const serNameSlnoString  = serNameSlnoArray .join(',');
-   const stainremoval = servimagestain.map((imageUrl) => imageUrl).join(',');
-   const windowimage = servImageWindow.map((imageUrl) => imageUrl).join(',');
-   const gutteringImage = servImageGuttering.map((imageUrl) => imageUrl).join(',');
-   const drivawayImage = servImageDriveWay.map((imageUrl) => imageUrl).join(',')
-
-
-    const query = `INSERT INTO service_reg 
-  (user_id, ser_name_slno, serv_type_slno, 	
-  serv_image_sofa,serv_time, serv_date, serv_location, vehicle_id, vehicle_name,
-  serv_image_stain,serv_image_window,serv_image_guttering,serv_image_driveway)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-
-  const values = [
-    data.user_id,
-    serNameSlnoString,
-    data.serv_type_slno,
-    flattenedImages,
-    data.serv_time,
-    data.serv_date,
-    data.serv_location,
-    data.vehicle_id,
-    data.vehicle_name,
-    stainremoval,
-    windowimage,
-    gutteringImage,
-    drivawayImage
-
-  ];
-    pool.query(query, values, (error, results, fields) => {
+insertservicereg: (data, images, callback) => { // Add 'images' parameter to receive the uploaded images.
+  pool.query(
+    `INSERT INTO service_reg 
+    (user_id, ser_name_slno, serv_type_slno, serv_time, serv_date, serv_location, vehicle_id, 
+      vehicle_name, serv_image_stain, serv_image_window, serv_image_guttering, serv_image_driveway,serv_image_sofa)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, // Update the SQL query to include the new image fields.
+    [
+      data.user_id,
+      data.ser_name_slno,
+      data.serv_type_slno,
+      data.serv_time,
+      data.serv_date,
+      data.serv_location,
+      data.vehicle_id,
+      data.vehicle_name,
+      images.serv_image_stain, // Access the images using the 'images' parameter.
+      images.serv_image_window,
+      images.serv_image_guttering,
+      images.serv_image_driveway,
+      data.serv_image_sofa
+    ],
+    (error, results, fields) => {
       if (error) {
         return callback(error);
       }
       return callback(null, results);
-    });
-  },
+    }
+  );
+},
+
+
+
+  // insertservicereg: (data, callback) => {
+  //   let servImagessofa = data.file.filename; // Array of sofa image data
+  //   let servimagestain = data.serv_image_stain // aray of satin removal image data
+  //   let servImageWindow = data.serv_image_window // array of window cleaning image data
+  //   let servImageGuttering = data.serv_image_guttering // array of guttering wash image data
+  //  let servImageDriveWay = data.serv_image_driveway // array of driveway pressure wash image data
+  //      let serNameSlnoArray  = data.ser_name_slno; // array of service name
+  //  console.log(serNameSlnoArray);
+  //  if (!Array.isArray(serNameSlnoArray)) {
+  //   serNameSlnoArray = [serNameSlnoArray];
+  // }
+  // if (!Array.isArray(servImagessofa)) {
+  //   // If servImages is not an array or is undefined, set it to an empty array
+  //   servImagessofa = [];
+  // }
+  // if (!Array.isArray(servimagestain)) {
+  //   // If servImages is not an array or is undefined, set it to an empty array
+  //   servimagestain = [];
+  // }
+  // if (!Array.isArray(servImageWindow)) {
+  //   // If servImages is not an array or is undefined, set it to an empty array
+  //   servImageWindow = [];
+  // }
+  // if (!Array.isArray(servImageDriveWay)) {
+  //   // If servImages is not an array or is undefined, set it to an empty array
+  //   servImageDriveWay = [];
+  // }
+  // if (!Array.isArray(servImageGuttering)) {
+  //   // If servImages is not an array or is undefined, set it to an empty array
+  //   servImageGuttering = [];
+  // }
+  //  const flattenedImages = servImagessofa.map((imageUrl) => imageUrl).join(',');
+  //  const serNameSlnoString  = serNameSlnoArray .join(',');
+  //  const stainremoval = servimagestain.map((imageUrl) => imageUrl).join(',');
+  //  const windowimage = servImageWindow.map((imageUrl) => imageUrl).join(',');
+  //  const gutteringImage = servImageGuttering.map((imageUrl) => imageUrl).join(',');
+  //  const drivawayImage = servImageDriveWay.map((imageUrl) => imageUrl).join(',')
+
+
+  //   const query = `INSERT INTO service_reg 
+  // (user_id, ser_name_slno, serv_type_slno, 	
+  // serv_image_sofa,serv_time, serv_date, serv_location, vehicle_id, vehicle_name,
+  // serv_image_stain,serv_image_window,serv_image_guttering,serv_image_driveway)
+  // VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+
+  // const values = [
+  //   data.user_id,
+  //   serNameSlnoString,
+  //   data.serv_type_slno,
+  //   flattenedImages,
+  //   data.serv_time,
+  //   data.serv_date,
+  //   data.serv_location,
+  //   data.vehicle_id,
+  //   data.vehicle_name,
+  //   stainremoval,
+  //   windowimage,
+  //   gutteringImage,
+  //   drivawayImage
+
+  // ];
+  //   pool.query(query, values, (error, results, fields) => {
+  //     if (error) {
+  //       return callback(error);
+  //     }
+  //     return callback(null, results);
+  //   });
+  // },
   
 
   serviceUpdation: (data, callback) => {

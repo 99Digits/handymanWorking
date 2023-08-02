@@ -1,27 +1,50 @@
 // router.js
 const express = require('express');
-const multer = require('multer');
 const path = require('path');
+const multer = require('multer')
 const router = express.Router();
 const userservice = require('./UserService');
 const { isErrored } = require('form-data');
 
 // ... (rest of the code)
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, 'api/images/image');
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
+//     },
+//   });
+  
+  // const uploads = multer({ 
+  //   storage: storage,
+  //   limits: {
+  //     fileSize: 1024 * 1024 * 10, // 10 MB (adjust to your needs)
+  //   },
+  //  });
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'api/images/image');
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
-    },
+ destination: (req, file, callback) => {
+ callback(null, './upload');
+ },
+ filename: (req, file, callback) => {
+ const filename = `image${Date.now()},${file.originalname}`;
+  callback(null, filename);
+ }
   });
   
-  const uploads = multer({ 
-    storage: storage,
-    limits: {
-      fileSize: 1024 * 1024 * 10, // 10 MB (adjust to your needs)
-    },
-   });
+  const fileFilter = (req, file, callback) => {
+   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+   callback(null, true);
+ } else {
+   callback(new Error('Only .png, .jpg, and .jpeg files are allowed'));
+   }
+  };
+  
+  const upload = multer({
+   storage: storage,
+ fileFilter: fileFilter,
+  });
 
 
 // create user profile
@@ -78,6 +101,9 @@ function userUpdation (req,res){
   })
 }
 
-router.post('/Registration', uploads.single('user_profile_pic'), userCreation);
-router.patch('/updation',uploads.single('user_profile_pic'),userUpdation);
+router.post('/Registration', upload.single('user_profile_pic'), userCreation);
+router.patch('/updation',upload.single('user_profile_pic'),userUpdation);
+
+
 module.exports = router;
+
