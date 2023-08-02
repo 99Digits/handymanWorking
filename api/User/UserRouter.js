@@ -51,7 +51,7 @@ const storage = multer.diskStorage({
 
 function userCreation(req, res) {
     const user_profile_pic	 = req.file.filename;
-
+console.log(req.file);
    
   const {
     user_fname, user_lname, phone,address,email,user_pasword,app_user	
@@ -59,7 +59,7 @@ function userCreation(req, res) {
 
   userservice.checkIfEmailExists(email, (err) => {
     if (err) {
-      return res.status(500).json({ error: err });
+      return res.status(203).json({ error: err });
     }
 
     const data = {

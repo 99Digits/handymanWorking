@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const {updateuser,getuserloginpassword,getuserdetails} = require('./usercreation.controller');
+const {getuserloginpassword,getuserdetails} = require('./usercreation.controller');
 // const {insertuser} = require('./usercreation.service')
 const multer = require('multer')
 const path = require('path')
@@ -19,7 +19,7 @@ const path = require('path')
 //         storage:storage
 //       })
 // router.post('/register',uploads.single('user_profile_pic'),insertuser);
-router.patch('/updateuser',updateuser);
+
 router.post('/loginpassword',getuserloginpassword);
 router.get('/detl/:id',getuserdetails)
 
