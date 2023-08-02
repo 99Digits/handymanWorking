@@ -5,17 +5,37 @@ const path = require('path');
 const router = express.Router();
 const Employeeservice  = require('./Employeeservice')
 
-// ... (rest of the code)
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'api/images/image');
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
-    },
+ destination: (req, file, callback) => {
+ callback(null, './upload');
+ },
+ filename: (req, file, callback) => {
+ const filename = `image${Date.now()},${file.originalname}`;
+  callback(null, filename);
+ }
   });
   
-  const uploads = multer({ storage: storage });
+  const fileFilter = (req, file, callback) => {
+   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+   callback(null, true);
+ } else {
+   callback(new Error('Only .png, .jpg, and .jpeg files are allowed'));
+   }
+  };
+  
+  const upload = multer({
+   storage: storage,
+//  fileFilter: fileFilter,
+  });
+
+
+
+
+// ... (rest of the code)
+
+  
+
 
 
 
@@ -125,7 +145,7 @@ Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
 
 
 
-router.post('/empInsert', uploads.single('emp_profile_pic'), EmployeeCreation);
-router.patch('/update',uploads.single("emp_profile_pic"), EmployeeUpdation)
+router.post('/empInsert', upload.single('emp_profile_pic'), EmployeeCreation);
+router.patch('/update',upload.single("emp_profile_pic"), EmployeeUpdation)
 
 module.exports = router;
