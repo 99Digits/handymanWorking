@@ -31,7 +31,6 @@ function checkIfEmailExists(email, callback) {
   // function of user creation
   function insertuser(data, callback) {
     pool.query(`INSERT INTO user_creation SET ?`, data, (err, results) => {
-      console.log(data);
       if (err) {
         console.error('Error inserting user:', err);
         callback('internal server error');

@@ -40,7 +40,7 @@ const userloginrouter = require('./api/usercreation/usercreation.router')
 app.get('/',(req,res)=>{
     res.send("hello my name is")
 })
-
+app.use(express.static(__dirname+'/upload'))
 app.use('/api/user',usercreationRouter)
 app.use('/api/getservicetype',servicetypeRouter)
 // app.use('/api/servReg',serviceRegisterRouter)

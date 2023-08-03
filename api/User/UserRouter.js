@@ -4,6 +4,7 @@ const path = require('path');
 const multer = require('multer')
 const router = express.Router();
 const userservice = require('./UserService');
+
 const { isErrored } = require('form-data');
 
 // ... (rest of the code)
@@ -49,8 +50,9 @@ const storage = multer.diskStorage({
 
 // create user profile
 
-function userCreation(req, res) {
+function userCreation(req, res) {       
     const user_profile_pic	 = req.file.filename;
+
   const {
     user_fname, user_lname, phone,address,email,user_pasword,app_user	
   } = req.body;
