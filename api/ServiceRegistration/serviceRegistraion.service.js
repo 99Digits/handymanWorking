@@ -11,42 +11,14 @@
 const pool = require('../../databaseconnection')
 const filename = require('./serviceRegistration.router')
 const multer = require('multer');
-const upload = multer({ dest:'api/images/image'});
+const upload = multer({ dest:'uploads/'});
 
 module.exports = {
- // Change 'uploads/' to the destination folder where you want to store the uploaded images.
 
-// ...
 
-insertservicereg: (data, images, callback) => { // Add 'images' parameter to receive the uploaded images.
-  pool.query(
-    `INSERT INTO service_reg 
-    (user_id, ser_name_slno, serv_type_slno, serv_time, serv_date, serv_location, vehicle_id, 
-      vehicle_name, serv_image_stain, serv_image_window, serv_image_guttering, serv_image_driveway,serv_image_sofa)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, // Update the SQL query to include the new image fields.
-    [
-      data.user_id,
-      data.ser_name_slno,
-      data.serv_type_slno,
-      data.serv_time,
-      data.serv_date,
-      data.serv_location,
-      data.vehicle_id,
-      data.vehicle_name,
-      images.serv_image_stain, // Access the images using the 'images' parameter.
-      images.serv_image_window,
-      images.serv_image_guttering,
-      images.serv_image_driveway,
-      data.serv_image_sofa
-    ],
-    (error, results, fields) => {
-      if (error) {
-        return callback(error);
-      }
-      return callback(null, results);
-    }
-  );
-},
+
+
+
 
 
 
@@ -157,7 +129,12 @@ insertservicereg: (data, images, callback) => { // Add 'images' parameter to rec
             service_reg.ser_name_slno, service_name.service_name,
             service_reg.serv_type_slno,
             service_type.service_type, 
-            service_reg.serv_image, 
+            service_reg.serv_image_stain, 
+            service_reg.serv_image_sofa, 
+            service_reg.serv_image_carpet, 
+            service_reg.serv_image_window, 
+            service_reg.serv_image_gutter, 
+            service_reg.serv_image_driveway, 
             service_reg.serv_time, 
             service_reg.serv_date, 
             service_reg.serv_location 
@@ -165,7 +142,7 @@ insertservicereg: (data, images, callback) => { // Add 'images' parameter to rec
             LEFT JOIN service_type ON service_reg.serv_type_slno = service_type.type_slno 
             LEFT JOIN service_name ON service_reg.ser_name_slno = service_name.name_slno 
             LEFT JOIN user_creation ON service_reg.user_id = user_creation.id 
-            WHERE id = ?; `,
+            WHERE user_id = ?; `,
 
       [id],
       (error, results, fields) => {

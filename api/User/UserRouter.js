@@ -1,28 +1,10 @@
 // router.js
 const express = require('express');
-const path = require('path');
 const multer = require('multer')
 const router = express.Router();
 const userservice = require('./UserService');
 
-const { isErrored } = require('form-data');
 
-// ... (rest of the code)
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, 'api/images/image');
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
-//     },
-//   });
-  
-  // const uploads = multer({ 
-  //   storage: storage,
-  //   limits: {
-  //     fileSize: 1024 * 1024 * 10, // 10 MB (adjust to your needs)
-  //   },
-  //  });
 
 const storage = multer.diskStorage({
  destination: (req, file, callback) => {
@@ -44,7 +26,9 @@ const storage = multer.diskStorage({
   
   const upload = multer({
    storage: storage,
-//  fileFilter: fileFilter,
+  fileFilter: fileFilter,
+   
+
   });
 
 

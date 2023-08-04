@@ -4,6 +4,8 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 app.use(express.json());
+
+
 // const mysql = require("mysql");
 const http = require('http');
 const socketIO = require('socket.io');
@@ -28,13 +30,14 @@ app.use(bodyParser.json());
 
 const usercreationRouter  = require('./api/User/UserRouter');
 const servicetypeRouter = require('./api/ServiceType/service.router');
-// const serviceRegisterRouter = require('./api/ServiceRegistration/serviceRegistration.router')
+const serviceRegisterRouter = require('./api/ServiceRegistration/serviceRegistration.router')
 const EmployeeCreationRouter = require('./api/EmployeeeCreation/employeecreation.router')
 const Jobmangement = require('./api/employeeJobMangement/JobMangemnt.router')
 const notifyRouter = require('./api/Notification/Notification.router');
 const subscrptionRouter= require('./api/ServiceSubcription/subscription.router')
 const employee = require('./api/Employee/Employeerouter')
 const userloginrouter = require('./api/usercreation/usercreation.router')
+const booking = require('./api/Servicebooking/bookingrouter')
 //  const otpverification = require('./api/verification/otpverification.router')
 
 app.get('/',(req,res)=>{
@@ -43,14 +46,14 @@ app.get('/',(req,res)=>{
 app.use(express.static(__dirname+'/upload'))
 app.use('/api/user',usercreationRouter)
 app.use('/api/getservicetype',servicetypeRouter)
-// app.use('/api/servReg',serviceRegisterRouter)
+app.use('/api/servReg',serviceRegisterRouter)
 app.use('/api/employee',EmployeeCreationRouter)
 app.use('/api/jobmangmt',Jobmangement)
 app.use('/api/notify',notifyRouter)
 app.use('/api/sebcrption',subscrptionRouter)
 app.use('/api/employee',employee)
 app.use('/api/userlogin',userloginrouter)
-
+app.use('/api/service',booking)
 
 const PORT = process.env.PORT ||5000
 
