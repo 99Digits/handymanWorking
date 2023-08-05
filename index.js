@@ -38,6 +38,7 @@ const subscrptionRouter= require('./api/ServiceSubcription/subscription.router')
 const employee = require('./api/Employee/Employeerouter')
 const userloginrouter = require('./api/usercreation/usercreation.router')
 const booking = require('./api/Servicebooking/bookingrouter')
+const adminlogin = require('./api/Adminpanel/adminrouter')
 //  const otpverification = require('./api/verification/otpverification.router')
 
 app.get('/',(req,res)=>{
@@ -54,6 +55,7 @@ app.use('/api/sebcrption',subscrptionRouter)
 app.use('/api/employee',employee)
 app.use('/api/userlogin',userloginrouter)
 app.use('/api/service',booking)
+app.use('/api/admin',adminlogin)
 
 const PORT = process.env.PORT ||5000
 
