@@ -32,13 +32,14 @@ const usercreationRouter  = require('./api/User/UserRouter');
 const servicetypeRouter = require('./api/ServiceType/service.router');
 const serviceRegisterRouter = require('./api/ServiceRegistration/serviceRegistration.router')
 const EmployeeCreationRouter = require('./api/EmployeeeCreation/employeecreation.router')
-const Jobmangement = require('./api/employeeJobMangement/JobMangemnt.router')
+const empJobmangement = require('./api/employeeJobMangement/JobMangemnt.router')
 const notifyRouter = require('./api/Notification/Notification.router');
 const subscrptionRouter= require('./api/ServiceSubcription/subscription.router')
 const employee = require('./api/Employee/Employeerouter')
 const userloginrouter = require('./api/usercreation/usercreation.router')
 const booking = require('./api/Servicebooking/bookingrouter')
 const adminlogin = require('./api/Adminpanel/adminrouter')
+const Jobmangement = require('./api/JobManagement/JobMangementrouter')
 //  const otpverification = require('./api/verification/otpverification.router')
 
 app.get('/',(req,res)=>{
@@ -49,13 +50,14 @@ app.use('/api/user',usercreationRouter)
 app.use('/api/getservicetype',servicetypeRouter)
 app.use('/api/servReg',serviceRegisterRouter)
 app.use('/api/employee',EmployeeCreationRouter)
-app.use('/api/jobmangmt',Jobmangement)
+app.use('/api/jobmangmt',empJobmangement)
 app.use('/api/notify',notifyRouter)
 app.use('/api/sebcrption',subscrptionRouter)
 app.use('/api/employee',employee)
 app.use('/api/userlogin',userloginrouter)
 app.use('/api/service',booking)
 app.use('/api/admin',adminlogin)
+app.use('/api/job',Jobmangement)
 
 const PORT = process.env.PORT ||5000
 

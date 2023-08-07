@@ -12,9 +12,9 @@ const storage = multer.diskStorage({
     const filename = `image${Date.now()},${file.originalname}`;
      callback(null, filename);
     }
-     });
+});
      
-     const fileFilter = (req, file, callback) => {
+    const fileFilter = (req, file, callback) => {
       if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
       callback(null, true);
     } else {
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
      const upload = multer({
       storage: storage,
    //  fileFilter: fileFilter,
-     });
+    });
 function booking(req,res){
   // console.log(req.files);
   if (req.files && Object.keys(req.files).length > 0) {
@@ -33,7 +33,6 @@ function booking(req,res){
     Object.keys(req.files).forEach((fieldName) => {
       const fileArray = req.files[fieldName];
       const fileName = fileArray[0].filename;
-      console.log(fileName);
       console.log(`Uploaded file for field '${fieldName}': ${fileName}`);
     });
   } else {
@@ -52,15 +51,12 @@ const data ={user_id ,ser_name_slno,serv_type_slno,serv_time,
     serv_image_window:serv_image_window[0].filename,
     serv_image_gutter:serv_image_gutter[0].filename,
     serv_image_driveway:serv_image_driveway[0].filename}
-
-
     servicebooking.serviceboking(data, (err, message) => {
-  
       if (err) {
         return res.status(500).json({ error: err });
       }
       res.json({ success: 2, message });
-      console.log(data);
+
     });
 }
 router.post(
