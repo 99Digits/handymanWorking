@@ -25,14 +25,15 @@ module.exports={
     getuserdetails:(id,callback)=>{
 
      
-      pool.query(`select id , CONCAT(user_creation.user_fname,' ',user_creation.user_lname) AS customer_Name, 
+      pool.query(`select id, CONCAT(user_creation.user_fname,' ',user_creation.user_lname) AS customer_Name, 
+      user_fname,
+      user_lname,
       email, 
       phone,
       user_profile_pic	
       from user_creation WHERE id=?;`,
       [id],
       (error,results,feilds)=>{
-        console.log(results);
         if(error){
           return callback(error)
         }
