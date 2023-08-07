@@ -30,6 +30,7 @@ module.exports={
       user_lname,
       email, 
       phone,
+      address,
       user_profile_pic	
       from user_creation WHERE id=?;`,
       [id],
