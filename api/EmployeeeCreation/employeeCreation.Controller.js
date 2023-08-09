@@ -31,7 +31,7 @@ module.exports={
             screen: results.map((item) => ({
               emp_address: item.emp_address,
               emp_location: item.emp_location,
-              emp_profile_pic: `data:image/jpeg;base64,${item.emp_profile_pic}`, // Add the data URL prefix
+              emp_profile_pic: item.emp_profile_pic, // Add the data URL prefix
               emp_email: item.emp_email,
               trining_course: item.trining_course,
               emp_phone: item.emp_phone,

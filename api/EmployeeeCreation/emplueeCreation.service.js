@@ -37,7 +37,7 @@ module.exports = {
           trining_course: item.trining_course,
           emp_phone: item.emp_phone,
           // Decode emp_profile_pic buffer to Base64
-          emp_profile_pic: item.emp_profile_pic?.toString("base64"),
+          emp_profile_pic: item.emp_profile_pic,
         }));
   
         return callback(null, modifiedResults);

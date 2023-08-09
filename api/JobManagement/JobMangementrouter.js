@@ -23,6 +23,11 @@ const upload = multer({
 
 
   function jobmangement(req,res){
+    const workImageBefore = req.files['work_image_before'];
+    const workImageAfter = req.files['work_image_after'];
+
+
+
     if (req.files && Object.keys(req.files).length > 0) {
         // Loop through the fields and handle file uploads
         Object.keys(req.files).forEach((fieldName) => {
@@ -33,11 +38,12 @@ const upload = multer({
       } else {
         console.log('No files were uploaded or field names did not match.');
       }
-      const {work_image_before,work_image_after} = req.files
+      // const {work_image_before,work_image_after} = req.files
       const {emp_id,reached_time,job_reject,reject_reason,leaving_time,service_name_slno,service_type_slno } = req.body;
       const data = {emp_id,reached_time,job_reject,reject_reason,leaving_time,service_name_slno,service_type_slno ,
-        work_image_before:work_image_before[0].filename,
-        work_image_after:work_image_after[0].filename}
+        work_image_before: workImageBefore.map(file => file.filename),
+        work_image_after: workImageAfter.map(file => file.filename),
+      }
 
         jobdetl.jobcompletion(data,(err,message)=>{
             if(err){

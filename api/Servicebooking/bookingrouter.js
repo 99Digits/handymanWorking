@@ -33,18 +33,24 @@ function booking(req,res){
     Object.keys(req.files).forEach((fieldName) => {
       const fileArray = req.files[fieldName];
       const fileName = fileArray[0].filename;
-      console.log(`Uploaded file for field '${fieldName}': ${fileName}`);
     });
   } else {
     console.log('No files were uploaded or field names did not match.');
   }
    const {serv_image_sofa,serv_image_stain,serv_image_carpet,serv_image_window,serv_image_gutter,serv_image_driveway} =req.files
-    
-    const {user_id ,ser_name_slno,serv_type_slno,serv_time,
+   const ser_name_slno = req.body.ser_name_slno.split(',').map(Number);
+
+    const {user_id ,serv_type_slno,serv_time,
         serv_date,serv_location,vehicle_id,vehicle_name} =req.body;
 
-const data ={user_id ,ser_name_slno,serv_type_slno,serv_time,
-    serv_date,serv_location,vehicle_id,vehicle_name,
+const data ={user_id,
+  ser_name_slno,
+  serv_type_slno,
+  serv_time,
+    serv_date,
+    serv_location,
+    vehicle_id,
+    vehicle_name,
     serv_image_stain:serv_image_stain[0].filename,
     serv_image_sofa:serv_image_sofa[0].filename,
     serv_image_carpet:serv_image_carpet[0].filename,
