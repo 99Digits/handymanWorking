@@ -33,16 +33,19 @@ function booking(req,res){
     Object.keys(req.files).forEach((fieldName) => {
       const fileArray = req.files[fieldName];
       const fileName = fileArray[0].filename;
+      console.log(fileName);
+      
     });
   } else {
     console.log('No files were uploaded or field names did not match.');
   }
    const {serv_image_sofa,serv_image_stain,serv_image_carpet,serv_image_window,serv_image_gutter,serv_image_driveway} =req.files
-   const ser_name_slno = req.body.ser_name_slno.split(',').map(Number);
+  //  const ser_name_slno = req.body.ser_name_slno.split(',').map(Number);
+  //  const ser_name_slno_str = ser_name_slno.join(',');
 
     const {user_id ,serv_type_slno,serv_time,
-        serv_date,serv_location,vehicle_id,vehicle_name} =req.body;
-
+        serv_date,serv_location,vehicle_id,vehicle_name,ser_name_slno} =req.body;
+     
 const data ={user_id,
   ser_name_slno,
   serv_type_slno,
@@ -57,6 +60,8 @@ const data ={user_id,
     serv_image_window:serv_image_window[0].filename,
     serv_image_gutter:serv_image_gutter[0].filename,
     serv_image_driveway:serv_image_driveway[0].filename}
+
+
     servicebooking.serviceboking(data, (err, message) => {
       if (err) {
         return res.status(500).json({ error: err });
