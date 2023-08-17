@@ -16,7 +16,6 @@ module.exports={
                 data.leaving_time
             ],
             (error, results, fields) => {
-                console.log(results);
                 if (error) {
                   return callback(error);
                 }

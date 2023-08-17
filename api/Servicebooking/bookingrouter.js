@@ -27,9 +27,7 @@ const storage = multer.diskStorage({
    //  fileFilter: fileFilter,
     });
 function booking(req,res){
-  // console.log(req.files);
   if (req.files && Object.keys(req.files).length > 0) {
-    // Loop through the fields and handle file uploads
     Object.keys(req.files).forEach((fieldName) => {
       const fileArray = req.files[fieldName];
       const fileName = fileArray[0].filename;
@@ -40,33 +38,39 @@ function booking(req,res){
     console.log('No files were uploaded or field names did not match.');
   }
    const {serv_image_sofa,serv_image_stain,serv_image_carpet,serv_image_window,serv_image_gutter,serv_image_driveway} =req.files
-  //  const ser_name_slno = req.body.ser_name_slno.split(',').map(Number);
-  //  const ser_name_slno_str = ser_name_slno.join(',');
 
-    const {user_id ,serv_type_slno,serv_time,
-        serv_date,serv_location,vehicle_id,vehicle_name,ser_name_slno} =req.body;
+
+    const {user_id ,ser_name_slno,serv_type_slno,serv_time,
+        serv_date,serv_location,vehicle_id,vehicle_name} =req.body;
      
-const data ={user_id,
+const inputdata ={user_id,
   ser_name_slno,
   serv_type_slno,
   serv_time,
     serv_date,
     serv_location,
-    vehicle_id,
-    vehicle_name,
-    serv_image_stain:serv_image_stain[0].filename,
-    serv_image_sofa:serv_image_sofa[0].filename,
-    serv_image_carpet:serv_image_carpet[0].filename,
-    serv_image_window:serv_image_window[0].filename,
-    serv_image_gutter:serv_image_gutter[0].filename,
-    serv_image_driveway:serv_image_driveway[0].filename}
+    vehicle_id:vehicle_id && vehicle_id.length>0 ? vehicle_id :null,
+    vehicle_name:vehicle_name && vehicle_name >0?vehicle_name :null,
+    serv_image_stain: serv_image_stain && serv_image_stain.length > 0 ? serv_image_stain[0].filename : null,
+    serv_image_sofa: serv_image_stain && serv_image_sofa.length > 0 ? serv_image_sofa[0].filename : null,
+    serv_image_carpet: serv_image_carpet && serv_image_carpet.length > 0 ? serv_image_carpet[0].filename : null,
+    serv_image_window: serv_image_window && serv_image_window.length > 0 ? serv_image_window[0].filename : null,
+    serv_image_gutter: serv_image_gutter && serv_image_gutter.length > 0 ? serv_image_gutter[0].filename : null,
+    serv_image_driveway: serv_image_driveway && serv_image_driveway.length > 0 ? serv_image_driveway[0].filename : null
+  }
+  
+    console.log(inputdata);
 
 
-    servicebooking.serviceboking(data, (err, message) => {
+
+
+
+
+    servicebooking.serviceboking(inputdata, (err, results) => {
       if (err) {
         return res.status(500).json({ error: err });
       }
-      res.json({ success: 2, message });
+      res.json({ success: 2, results });
 
     });
 }
