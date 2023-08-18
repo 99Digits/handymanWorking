@@ -1,7 +1,6 @@
 const pool = require('../../databaseconnection')
 
 function serviceboking(data, callback) {
-  console.log(data);
  pool.query(`INSERT INTO service_reg 
  (user_id,
   ser_name_slno,
@@ -39,11 +38,6 @@ data.serv_image_driveway],
   return callback(null, "service booked successfully");
 }
  )
-  
-
-
-
- 
 }
 
 module.exports = {
