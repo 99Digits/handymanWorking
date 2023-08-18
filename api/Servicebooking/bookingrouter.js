@@ -52,18 +52,13 @@ const inputdata ={user_id,
     vehicle_id:vehicle_id && vehicle_id.length>0 ? vehicle_id :null,
     vehicle_name:vehicle_name && vehicle_name >0?vehicle_name :null,
     serv_image_stain: serv_image_stain && serv_image_stain.length > 0 ? serv_image_stain[0].filename : null,
-    serv_image_sofa: serv_image_stain && serv_image_sofa.length > 0 ? serv_image_sofa[0].filename : null,
+    serv_image_sofa: serv_image_sofa && serv_image_sofa.length > 0 ? serv_image_sofa[0].filename : null,
     serv_image_carpet: serv_image_carpet && serv_image_carpet.length > 0 ? serv_image_carpet[0].filename : null,
     serv_image_window: serv_image_window && serv_image_window.length > 0 ? serv_image_window[0].filename : null,
     serv_image_gutter: serv_image_gutter && serv_image_gutter.length > 0 ? serv_image_gutter[0].filename : null,
     serv_image_driveway: serv_image_driveway && serv_image_driveway.length > 0 ? serv_image_driveway[0].filename : null
   }
   
-    console.log(inputdata);
-
-
-
-
 
 
     servicebooking.serviceboking(inputdata, (err, results) => {
