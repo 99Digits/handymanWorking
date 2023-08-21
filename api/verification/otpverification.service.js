@@ -43,7 +43,6 @@ async function ValidateOTP(params,callback){
 }
 
 module.exports ={
-    router,
     ValidateOTP,
     createOTP
 } 

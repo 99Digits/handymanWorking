@@ -61,6 +61,7 @@ app.use('/api/service',booking)
 app.use('/api/admin',adminlogin)
 app.use('/api/job',Jobmangement)
 app.use('/api/notification',notification)
+// app.use('/api/otp',otpverification)
 
 
 const PORT = process.env.PORT ||5000

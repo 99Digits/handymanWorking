@@ -1,7 +1,10 @@
-exports.otplogin =(req,res,next) =>{
+const otpverificationservice = require('./otpverification.service')
+
+
+exports.otplogin =(req,res) =>{
 otpverificationservice.createOTP(req.body,(error,results)=>{
     if(error){
-        return  next(error)
+        return  error
     }
     return res.status(200).send
     message:"success"
