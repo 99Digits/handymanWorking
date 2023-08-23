@@ -8,6 +8,7 @@ router.post('/send', (req, res) => {
         'title': 'Title of notification',
         'text': 'Subtitle'
     };
+    console.log(notification);
 
     const fcm_tokens = [];
 

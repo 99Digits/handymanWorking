@@ -29,6 +29,7 @@ const storage = multer.diskStorage({
       storage: storage,
    //  fileFilter: fileFilter,
     });
+
 function booking(req,res){
   if (req.files && Object.keys(req.files).length > 0) {
     Object.keys(req.files).forEach((fieldName) => {
@@ -40,12 +41,30 @@ function booking(req,res){
     console.log('No files were uploaded or field names did not match.');
   }
    const {serv_image_sofa,serv_image_stain,serv_image_carpet,serv_image_window,serv_image_gutter,serv_image_driveway} =req.files
-
+console.log(serv_image_stain.filename);
     const {user_id ,ser_name_slno,serv_type_slno,serv_time,
         serv_date,serv_location,vehicle_id,vehicle_name} =req.body;
+         //array of service name alno
+        const arrayvalues = [];
+        arrayvalues.push(ser_name_slno)
+        const jsonarray=JSON.stringify(arrayvalues);
+        const parsearray=JSON.parse(jsonarray)
+
+//array of stain reoval image
+const strainremoval = [];
+strainremoval.push(serv_image_stain)
+const jsonarray2=JSON.stringify(strainremoval)
+const stainremoval = JSON.parse(jsonarray2)
+const xx = serv_image_stain.filename
+console.log(xx);
+
+// array of sofa cleaning image
+const sofacleaning = [];
+sofacleaning.push(serv_image_sofa)
+
      
 const inputdata ={user_id,
-  ser_name_slno,
+  parsearray,
   serv_type_slno,
   serv_time,
     serv_date,
@@ -59,8 +78,9 @@ const inputdata ={user_id,
     serv_image_gutter: serv_image_gutter && serv_image_gutter.length > 0 ? serv_image_gutter[0].filename : null,
     serv_image_driveway: serv_image_driveway && serv_image_driveway.length > 0 ? serv_image_driveway[0].filename : null
   }
-  
+    
 
+  console.log(inputdata);
 
     servicebooking.serviceboking(inputdata, (err, results) => {
       if (err) {

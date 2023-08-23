@@ -126,7 +126,8 @@ module.exports = {
           `SELECT 
           service_reg.user_id,
           CONCAT(user_creation.user_fname,' ',user_creation.user_lname) AS customer_Name,
-            service_reg.ser_name_slno, service_name.service_name,
+            service_reg.ser_name_slno,
+             service_name.service_name,
             service_reg.serv_type_slno,
             service_type.service_type, 
             service_reg.serv_image_stain, 
@@ -140,7 +141,8 @@ module.exports = {
             service_reg.serv_location 
             FROM service_reg 
             LEFT JOIN service_type ON service_reg.serv_type_slno = service_type.type_slno 
-            LEFT JOIN service_name ON service_reg.ser_name_slno = service_name.name_slno 
+            LEFT JOIN service_name ON 
+    CONCAT(',', service_reg.ser_name_slno, ',') LIKE CONCAT('%,', service_name.name_slno, ',%') 
             LEFT JOIN user_creation ON service_reg.user_id = user_creation.id 
             WHERE user_id = ?; `,
 

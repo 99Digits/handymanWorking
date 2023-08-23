@@ -1,6 +1,7 @@
 const pool = require('../../databaseconnection')
 
 function serviceboking(data, callback) {
+  // console.log(data);
  pool.query(`INSERT INTO service_reg 
  (user_id,
   ser_name_slno,
@@ -17,7 +18,7 @@ function serviceboking(data, callback) {
   serv_image_gutter,
   serv_image_driveway) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   [data.user_id,
-data.ser_name_slno,
+data.parsearray,
 data.serv_type_slno,
 data.serv_time,
 data.serv_date,
@@ -32,6 +33,7 @@ data.serv_image_gutter,
 data.serv_image_driveway],
 
 (error, results, fields) => {
+ 
   if (error) {
     return callback(error);
   }
