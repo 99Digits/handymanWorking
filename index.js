@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 app.use(express.json());
-const {initializeApp,applicationDefault } = require('firebase-admin/app')
+// const {initializeApp,applicationDefault } = require('firebase-admin/app')
 // import { initializeApp,applicationDefault } from 'firebase-admin';
 
 // const mysql = require("mysql");
@@ -64,29 +64,29 @@ app.use('/api/job',Jobmangement)
 app.use('/api/notification',notification)
 // app.use('/api/otp',otpverification)
 
-var admin = require("firebase-admin");
-const {getMessaging} = require("firebase-admin/messaging")
+// var admin = require("firebase-admin");
+// const {getMessaging} = require("firebase-admin/messaging")
 
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS;
+// process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-app.use(function(req,res,next){
-res.setHeader("Content-type","application/json");
-next();
-})
+// app.use(function(req,res,next){
+// res.setHeader("Content-type","application/json");
+// next();
+// })
   
 
-app.post("/send",(req,res)=>{
-  const receivedToken = re.body.fcmToken
-  const message ={
-     notification:{
-      title:"notif",
-      body:"this is a notofication"
-    },
-    token:receivedToken
-  };
+// app.post("/send",(req,res)=>{
+//   const receivedToken = re.body.fcmToken
+//   const message ={
+//      notification:{
+//       title:"notif",
+//       body:"this is a notofication"
+//     },
+//     token:receivedToken
+//   };
   
-})
+// })
 
 // getMessaging()
 // .send(message)
@@ -94,10 +94,10 @@ app.post("/send",(req,res)=>{
 
 // })
 
-initializeApp({
-  credential:applicationDefault(),
-  projectId:'glossy-flossy-otp'
-});
+// initializeApp({
+//   credential:applicationDefault(),
+//   projectId:'glossy-flossy-otp'
+// });
 
 
 
