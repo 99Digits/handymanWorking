@@ -48,13 +48,13 @@ module.exports={
         const id=req.params.id;
         workerserviceHistory(id,(err,results)=>{
               if(err){
-                return res.status(400).json({
+                return res.status(500).json({
                     success:0,
                     message:err
                 })
             }
             else if(results.length==0){
-                return res.status(200).json({
+                return res.status(500).json({
                     success:1,
                     message:"server is not responding"
                 })

@@ -57,23 +57,27 @@ module.exports={
         }
         )
     },
-    workerserviceHistory:(id,callback)=>{
-        pool.query(`SELECT empjob_mangemnt.emp_id,service_type_slno,emp_firstname,
-        service_name_slno,service_type.service_type,
-        service_name,
-        work_image_after,
-        work_image_before
-        FROM empjob_mangemnt 
-        LEFT JOIN service_type on empjob_mangemnt.service_type_slno = service_type.type_slno
-        LEFT JOIN service_name on empjob_mangemnt.service_name_slno = service_name.name_slno
-        left join emp_creation on empjob_mangemnt.emp_id = emp_creation.emp_id
-        where empjob_mangemnt.emp_id =?`,[id],
-        (results,error,feilds)=>{
-            if(error){
-                return callback(error)
+    workerserviceHistory: (id,callback) => {
+        pool.query(
+    
+              `SELECT empjob_mangemnt.emp_id,service_type_slno,emp_firstname,
+              service_name_slno,service_type.service_type,
+              service_name,
+              work_image_after,
+              work_image_before
+              FROM empjob_mangemnt 
+              LEFT JOIN service_type on empjob_mangemnt.service_type_slno = service_type.type_slno
+              LEFT JOIN service_name on empjob_mangemnt.service_name_slno = service_name.name_slno
+              left join emp_creation on empjob_mangemnt.emp_id = emp_creation.emp_id
+              where empjob_mangemnt.emp_id =? `,
+    
+          [id],
+          (error, results, fields) => {
+            if (error) {
+              return callback(error);
             }
-            return callback(null,results)
-        }
-        )
-    }
+            return callback(null, results);
+          }
+        );
+      },
 }
