@@ -54,9 +54,9 @@ module.exports={
                 })
             }
             else if(results.length==0){
-                return res.status(500).json({
+                return res.status(200).json({
                     success:1,
-                    message:"server is not responding"
+                    message:[]
                 })
             }
             return res.status(200).json({

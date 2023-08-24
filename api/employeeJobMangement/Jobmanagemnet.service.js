@@ -64,7 +64,9 @@ module.exports={
               service_name_slno,service_type.service_type,
               service_name,
               work_image_after,
-              work_image_before
+              work_image_before,
+              work_location,
+              work_date
               FROM empjob_mangemnt 
               LEFT JOIN service_type on empjob_mangemnt.service_type_slno = service_type.type_slno
               LEFT JOIN service_name on empjob_mangemnt.service_name_slno = service_name.name_slno
