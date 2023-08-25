@@ -29,6 +29,8 @@ module.exports = {
         // Convert the emp_profile_pic buffer to a Base64-encoded string
         const modifiedResults = results.map((item) => ({
           emp_name: item.emp_name,
+          emp_firstname:item.emp_firstname,
+          emp_lastname:item.emp_lastname,
           isuence_id: item.isuence_id,
           experience: item.experience,
           WorkAvl_from: item.WorkAvl_from,

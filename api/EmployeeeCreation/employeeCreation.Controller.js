@@ -27,6 +27,8 @@ module.exports={
               experience: item.experience,
               WorkAvl_from: item.WorkAvl_from,
               work_avl_to: item.work_avl_to,
+              emp_firstname:item.emp_firstname,
+              emp_lastname:item.emp_lastname,
             })),
             screen: results.map((item) => ({
               emp_address: item.emp_address,
