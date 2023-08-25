@@ -8,6 +8,8 @@ module.exports = {
  getEmpDetails : (id, callback) => {
     pool.query(
       `SELECT CONCAT(emp_firstname,' ',emp_lastname) as emp_name,
+      emp_firstname,
+      emp_lastname,
       emp_phone,
       emp_address,
       emp_location,
