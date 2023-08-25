@@ -71,7 +71,7 @@ module.exports={
               LEFT JOIN service_type on empjob_mangemnt.service_type_slno = service_type.type_slno
               LEFT JOIN service_name on empjob_mangemnt.service_name_slno = service_name.name_slno
               left join emp_creation on empjob_mangemnt.emp_id = emp_creation.emp_id
-              where empjob_mangemnt.emp_id =? `,
+              where empjob_mangemnt.emp_id =?`,
     
           [id],
           (error, results, fields) => {

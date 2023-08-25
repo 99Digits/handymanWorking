@@ -33,7 +33,7 @@ const upload = multer({
         Object.keys(req.files).forEach((fieldName) => {
           const fileArray = req.files[fieldName];
           const fileName = fileArray[0].filename;
-          console.log(`Uploaded file for field '${fieldName}': ${fileName}`);
+
         });
       } else {
         console.log('No files were uploaded or field names did not match.');
@@ -45,7 +45,7 @@ const upload = multer({
         work_image_before: workImageBefore.map(file => file.filename),
         work_image_after: workImageAfter.map(file => file.filename),
         work_location,
-        work_date,
+        work_date
       }
 
         jobdetl.jobcompletion(data,(err,message)=>{

@@ -104,9 +104,7 @@ function EmployeeUpdation(req,res){
     experience,
     isuence_id,
     trining_course,
-    emp_password,
     emp_email,
-    app_user,
     emp_id
   } = req.body;
 Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
@@ -124,17 +122,16 @@ Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
     experience,
     isuence_id,
     trining_course,
-    emp_password,
     emp_email,
     emp_profile_pic,
-    app_user,
     emp_id
   };
 
   Employeeservice.updateEmployee(data, (err, message) => {
     console.log(data);
     if (err) {
-      return res.status(500).json({ error: err });
+      // return res.status(500).json({ error: err });
+      console.log(err);
     }
 
     res.json({ success: 2, message });

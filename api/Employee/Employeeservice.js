@@ -46,12 +46,13 @@ function insertEmployee(data, callback) {
 
 function updateEmployee(data, callback) {
   pool.query(`UPDATE emp_creation SET ? WHERE emp_id =?`, [data,data.emp_id], (err, results) => {
+    console.log(results);
     if (err) {
       console.error('Error inserting user:', err);
       console.log(err);
       callback('internal server error');
     } else {
-      console.log('User created successfully');
+      console.log('employee details updated');
       callback(null, 'profile updated successfully');
     }
   });
