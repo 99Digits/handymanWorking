@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 app.use(express.json());
-// const {initializeApp,applicationDefault } = require('firebase-admin/app')
+const {initializeApp,applicationDefault } = require('firebase-admin/app')
 // import { initializeApp,applicationDefault } from 'firebase-admin';
 
 // const mysql = require("mysql");
@@ -43,7 +43,7 @@ const booking = require('./api/Servicebooking/bookingrouter')
 const adminlogin = require('./api/Adminpanel/adminrouter')
 const Jobmangement = require('./api/JobManagement/JobMangementrouter')
 const notification = require('./api/AppNotification/appnotification.router')
-//  const otpverification = require('./api/verification/otpverification.router')
+  // const otpverification = require('./api/verification/otpverification.router')
 const userreviewRouter =require('./api/userReview/reviewrouter')
 app.get('/',(req,res)=>{
     res.send("hello my name is")
@@ -79,7 +79,7 @@ app.use('/api/review',userreviewRouter)
   
 
 // app.post("/send",(req,res)=>{
-//   const receivedToken = re.body.fcmToken
+//   const receivedToken = req.body.fcmToken
 //   const message ={
 //      notification:{
 //       title:"notif",

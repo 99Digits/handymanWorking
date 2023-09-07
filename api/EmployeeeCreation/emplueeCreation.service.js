@@ -21,28 +21,11 @@ module.exports = {
       WorkAvl_from,
       experience FROM emp_creation WHERE emp_id=?`,
       [id],
-      (error, results, fields) => {
+      (error, modifiedResults, fields) => {
         if (error) {
           return callback(error);
         }
   
-        // Convert the emp_profile_pic buffer to a Base64-encoded string
-        const modifiedResults = results.map((item) => ({
-          emp_name: item.emp_name,
-          emp_firstname:item.emp_firstname,
-          emp_lastname:item.emp_lastname,
-          isuence_id: item.isuence_id,
-          experience: item.experience,
-          WorkAvl_from: item.WorkAvl_from,
-          work_avl_to: item.work_avl_to,
-          emp_address: item.emp_address,
-          emp_location: item.emp_location,
-          emp_email: item.emp_email,
-          trining_course: item.trining_course,
-          emp_phone: item.emp_phone,
-          // Decode emp_profile_pic buffer to Base64
-          emp_profile_pic: item.emp_profile_pic,
-        }));
   
         return callback(null, modifiedResults);
       }
@@ -114,11 +97,7 @@ module.exports = {
         return callback(error);
       }
       return callback(null, results);
-   
     }
     )
   },
-
-
-
 };
