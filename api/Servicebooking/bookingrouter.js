@@ -120,7 +120,7 @@ function booking(req,res){
     serv_date,
     serv_location,
     vehicle_id: vehicle_id && vehicle_id.length> 0 ? vehicle_id :null,
-    vehicle_name: vehicle_name && vehicle_name > 0 ? vehicle_name :null,
+    vehicle_name: vehicle_name && vehicle_name.length > 0 ? vehicle_name :null,
     serv_image_stain: stainremovalService && stainremovalService.length > 0 ? stainremovalService: null,
     serv_image_sofa:sofaService && sofaService.length > 0 ? sofaService:null ,
     serv_image_carpet: carpetImage && carpetImage.length > 0 ? carpetImage: null,
