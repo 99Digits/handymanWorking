@@ -4,10 +4,8 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 app.use(express.json());
+const cors = require('cors')
 const {initializeApp,applicationDefault } = require('firebase-admin/app')
-// import { initializeApp,applicationDefault } from 'firebase-admin';
-
-// const mysql = require("mysql");
 const http = require('http');
 const socketIO = require('socket.io');
 const server = http.createServer(app); // Create an instance of http.Server using Express
