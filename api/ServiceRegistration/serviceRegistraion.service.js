@@ -138,12 +138,15 @@ module.exports = {
           service_reg.serv_image_driveway, 
           service_reg.serv_time, 
           service_reg.serv_date, 
-          service_reg.serv_location 
+          service_reg.serv_location ,
+          vehicle_name,
+          vehicle_id
         FROM service_reg 
         LEFT JOIN service_type ON service_reg.serv_type_slno = service_type.type_slno 
         LEFT JOIN service_name ON FIND_IN_SET(service_name.name_slno, REPLACE(service_reg.ser_name_slno, ' ', '')) > 0
         LEFT JOIN user_creation ON service_reg.user_id = user_creation.id 
         WHERE user_id = ?
+        
        
         `,
 
