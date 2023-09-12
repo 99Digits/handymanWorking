@@ -125,26 +125,27 @@ module.exports = {
 
           `SELECT 
           service_reg.user_id,
-          CONCAT(user_creation.user_fname,' ',user_creation.user_lname) AS customer_Name,
-            service_reg.ser_name_slno,
-             service_name.service_name,
-            service_reg.serv_type_slno,
-            service_type.service_type, 
-            service_reg.serv_image_stain, 
-            service_reg.serv_image_sofa, 
-            service_reg.serv_image_carpet, 
-            service_reg.serv_image_window, 
-            service_reg.serv_image_gutter, 
-            service_reg.serv_image_driveway, 
-            service_reg.serv_time, 
-            service_reg.serv_date, 
-            service_reg.serv_location 
-            FROM service_reg 
-            LEFT JOIN service_type ON service_reg.serv_type_slno = service_type.type_slno 
-            LEFT JOIN service_name ON 
-    CONCAT(',', service_reg.ser_name_slno, ',') LIKE CONCAT('%,', service_name.name_slno, ',%') 
-            LEFT JOIN user_creation ON service_reg.user_id = user_creation.id 
-            WHERE user_id = ?; `,
+          CONCAT(user_creation.user_fname, ' ', user_creation.user_lname) AS customer_Name,
+          service_reg.ser_name_slno,
+          GROUP_CONCAT(service_name.service_name) AS service_names,
+          service_reg.serv_type_slno,
+          service_type.service_type, 
+          service_reg.serv_image_stain, 
+          service_reg.serv_image_sofa, 
+          service_reg.serv_image_carpet, 
+          service_reg.serv_image_window, 
+          service_reg.serv_image_gutter, 
+          service_reg.serv_image_driveway, 
+          service_reg.serv_time, 
+          service_reg.serv_date, 
+          service_reg.serv_location 
+        FROM service_reg 
+        LEFT JOIN service_type ON service_reg.serv_type_slno = service_type.type_slno 
+        LEFT JOIN service_name ON FIND_IN_SET(service_name.name_slno, REPLACE(service_reg.ser_name_slno, ' ', '')) > 0
+        LEFT JOIN user_creation ON service_reg.user_id = user_creation.id 
+        WHERE user_id = ?
+       
+        `,
 
       [id],
       (error, results, fields) => {
