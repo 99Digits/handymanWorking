@@ -127,7 +127,7 @@ module.exports = {
           service_reg.user_id,
           CONCAT(user_creation.user_fname, ' ', user_creation.user_lname) AS customer_Name,
           service_reg.ser_name_slno,
-          GROUP_CONCAT(service_name.service_name) AS service_names,
+         service_name.service_name,
           service_reg.serv_type_slno,
           service_type.service_type, 
           service_reg.serv_image_stain, 
