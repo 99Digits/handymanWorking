@@ -41,7 +41,7 @@ const booking = require('./api/Servicebooking/bookingrouter')
 const adminlogin = require('./api/Adminpanel/adminrouter')
 const Jobmangement = require('./api/JobManagement/JobMangementrouter')
 const notification = require('./api/AppNotification/appnotification.router')
-  // const otpverification = require('./api/verification/otpverification.router')
+  const otpverification = require('./api/verification/otpverification')
 const userreviewRouter =require('./api/userReview/reviewrouter')
 app.get('/',(req,res)=>{
     res.send("hello my name is")
@@ -62,7 +62,7 @@ app.use('/api/job',Jobmangement)
 app.use('/api/notification',notification)
 app.use('/api/review',userreviewRouter)
 
-// app.use('/api/otp',otpverification)
+app.use('/api/otp',otpverification)
 
 // var admin = require("firebase-admin");
 // const {getMessaging} = require("firebase-admin/messaging")
