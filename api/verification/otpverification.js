@@ -144,7 +144,7 @@
 const express = require('express');
 const router = express.Router()
 const bodyParser = require('body-parser');
-const twilio = require('twilio');
+const twilio= require('twilio')
 
 
 const app = express();
@@ -153,7 +153,7 @@ const pool = require('../../databaseconnection')
 
 // Twilio credentials
 const accountSid = 'AC1d3929db63748c2550059970a00f92b2';
-const authToken = 'e0f08f0550913e09cef2502088a2e1b5';
+const authToken = '9f7cb459962483e0ae1f98e009b9fff1';
 const client = twilio(accountSid, authToken);
 
 // Generate a random 6-digit OTP
