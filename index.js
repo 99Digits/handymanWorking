@@ -43,6 +43,7 @@ const Jobmangement = require('./api/JobManagement/JobMangementrouter')
 const notification = require('./api/AppNotification/appnotification.router')
   const otpverification = require('./api/verification/otpverification')
 const userreviewRouter =require('./api/userReview/reviewrouter')
+const paypalpayment  = require('./api/PaypalPayment/Paymentrouter')
 app.get('/',(req,res)=>{
     res.send("hello my name is")
 })
@@ -61,43 +62,11 @@ app.use('/api/admin',adminlogin)
 app.use('/api/job',Jobmangement)
 app.use('/api/notification',notification)
 app.use('/api/review',userreviewRouter)
+app.use('/api/payment',paypalpayment)
 
 app.use('/api/otp',otpverification)
 
-// var admin = require("firebase-admin");
-// const {getMessaging} = require("firebase-admin/messaging")
 
-
-// process.env.GOOGLE_APPLICATION_CREDENTIALS;
-
-// app.use(function(req,res,next){
-// res.setHeader("Content-type","application/json");
-// next();
-// })
-  
-
-// app.post("/send",(req,res)=>{
-//   const receivedToken = req.body.fcmToken
-//   const message ={
-//      notification:{
-//       title:"notif",
-//       body:"this is a notofication"
-//     },
-//     token:receivedToken
-//   };
-  
-// })
-
-// getMessaging()
-// .send(message)
-// .then((response)=>{
-
-// })
-
-// initializeApp({
-//   credential:applicationDefault(),
-//   projectId:'glossy-flossy-otp'
-// });
 
 
 

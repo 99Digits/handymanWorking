@@ -23,30 +23,55 @@ const upload = multer({
 
 
   function jobmangement(req,res){
-    const workImageBefore = req.files['work_image_before'];
-    const workImageAfter = req.files['work_image_after'];
 
-
+    //array for image upload
+    const afterwork =[];
+    const beforeWork = [];
+    const serviceName = [];
+;
 
     if (req.files && Object.keys(req.files).length > 0) {
-        // Loop through the fields and handle file uploads
-        Object.keys(req.files).forEach((fieldName) => {
-          const fileArray = req.files[fieldName];
-          const fileName = fileArray[0].filename;
-
-        });
+      if(req.files['work_image_after']){
+        const afterWorkImage = req.files['work_image_after']
+        afterwork.push(...afterWorkImage.map((file)=>file.filename))
+      }
+      if(req.files['work_image_before']){
+        const beforeworkImage=req.files['work_image_before']
+        beforeWork.push(...beforeworkImage.map((file)=>file.filename))
+      }
       } else {
         console.log('No files were uploaded or field names did not match.');
       }
-      // const {work_image_before,work_image_after} = req.files
+
+
+      const afterimagearray = JSON.stringify(afterwork)
+      const afterArrayString = JSON.parse(afterimagearray).join(',')
+     
+
+
+      const beforeimageArray = JSON.stringify(beforeWork)
+      const beforeArrayString = JSON.parse(beforeimageArray).join(',')
+      
       const {emp_id,reached_time,job_reject,reject_reason,leaving_time,service_name_slno,service_type_slno, work_location,
         work_date, } = req.body;
-      const data = {emp_id,reached_time,job_reject,reject_reason,leaving_time,service_name_slno,service_type_slno ,
-        work_image_before: workImageBefore.map(file => file.filename),
-        work_image_after: workImageAfter.map(file => file.filename),
+      serviceName.push(service_name_slno)
+      const service = JSON.stringify(serviceName)
+      const serviceArray = JSON.parse(service)
+      console.log(serviceArray);
+
+
+      // const {work_image_before,work_image_after} = req.files
+     
+      const data = {emp_id,reached_time,job_reject,reject_reason,leaving_time,
+        service_name_slno:serviceArray,
+        service_type_slno ,
+        work_image_before: beforeArrayString,
+        work_image_after: afterArrayString,
         work_location,
         work_date
       }
+
+
 
         jobdetl.jobcompletion(data,(err,message)=>{
             if(err){
@@ -54,18 +79,38 @@ const upload = multer({
             }
             res.json({success:2,message})
         })
+  }
 
+
+
+  function jobDetlToEmp(req,res){
+    jobdetl.jobdeatils((err,result)=>{
+      if(err){
+        return res.status(500).json({})
+      }
+      else if(result.length == 0){
+        return res.status(203).json({
+          success:1,
+          message:'no services are booking',
+          data:[]
+        })
+
+      }
+      else {
+        res.json({success:2,result})
+      }
+    })
 
   }
   
 
   router.post('/jobdetl',upload.fields([
-    {name:"work_image_before"},
-    {name:"work_image_after"}
+    {name:"work_image_before",maxCount:10},
+    {name:"work_image_after",maxCount:10}
   ]),jobmangement)
 
-//   router.post('/upload',upload.fields([
-//     {name:'work_image_before' },)],jobmangement)
+  router.get('/getJobdetl',jobDetlToEmp);
+
 
 
 module.exports = router
