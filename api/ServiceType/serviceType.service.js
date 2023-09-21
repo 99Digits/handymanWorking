@@ -15,7 +15,7 @@ module.exports={
       },
 
       getservicename:(id,callback)=>{
-        pool.query(`select name_slno,service_name
+        pool.query(`select name_slno,service_name,service_price
          from service_name where serv_type_slno=?`,
         [id],
         (error,results,feilds)=>{

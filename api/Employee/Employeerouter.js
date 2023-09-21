@@ -57,7 +57,7 @@ function EmployeeCreation(req, res) {
     trining_course,
     emp_password,
     emp_email,
-    app_user,
+    app_user
   } = req.body;
 
   Employeeservice.checkIfEmailExists(emp_email, (err) => {
@@ -106,6 +106,7 @@ function EmployeeUpdation(req,res){
     isuence_id,
     trining_course,
     emp_email,
+    is_active,
     emp_id
   } = req.body;
 Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
@@ -125,11 +126,12 @@ Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
     trining_course,
     emp_email,
     emp_profile_pic,
+    is_active,
     emp_id
   };
 
   Employeeservice.updateEmployee(data, (err, message) => {
-    console.log(data);
+
     if (err) {
       // return res.status(500).json({ error: err });
       console.log(err);
