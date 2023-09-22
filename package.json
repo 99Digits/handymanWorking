@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@onesignal/node-onesignal": "^2.0.1-beta2",
     "@vonage/server-sdk": "^3.5.1",
     "auth": "^0.0.9",
     "axios": "^1.4.0",
@@ -26,6 +27,7 @@
     "mysql2": "^3.6.1",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.3",
+    "onesignal-node": "^3.4.0",
     "otp-generator": "^4.0.1",
     "paypal-rest-sdk": "^1.8.1",
     "socket.io": "^4.6.2",

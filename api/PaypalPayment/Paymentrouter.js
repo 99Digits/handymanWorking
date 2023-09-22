@@ -3,27 +3,32 @@ const router = express.Router();
 
 
 const paypal = require('paypal-rest-sdk');
+const query = require('querystring')
 
 
 paypal.configure ({
     mode:'sandbox',
-    client_id:'AbfcGFFcHzt8hPFXQHpRsyL82WyKJ_a2Hg90O08-dPb26ICWfY-aTZSEZyBT7YH_Mn3Oco1eYF82nqB2',
-    secret_id:'EPy9TfKifvZYAbVKV_M25rclTsu3HV7UOQHIdkXJlp_OWel9UAWaFxzDBO_jRxWTZ-0mPquAhofp-Ynj'
+    client_id:process.env.PAYPAL_CLIENT_KEY,
+    secret_id:process.env.PAYPAL_SECRET_KEY
 
 })
-router.post ('/createPayment',async(req,res)=>{
 
-    const amount = req.query.amount;
-    const currency =  req.query.currency.toUpperCase();
 
-    const paymentData ={
+ 
+
+
+    router.get('/paypalpayment',async(req,res)=>{
+        const amount = req.query.amount;
+        const currency =  req.query.currency.toUpperCase();
+        
+    const create_payal_payment ={
         "intent":'sale',
         "payer":{
             "payment_method":'paypal'
         },
         "redirect_url" : {
-            "return_url" :'',
-            "cancel_url" : ''
+            "return_url" :`http://143.198.103.241:5000/execute?amount = ${amount}`,
+            "cancel_url" : 'http://cancel_url'
         },
       "transaction":[
         {
@@ -48,20 +53,30 @@ router.post ('/createPayment',async(req,res)=>{
         
     };
 
-
-    paypal.payment.create(paymentData,function(error,payment){
+    paypal.payment.create(create_payal_payment,function(error,payment){
         if(error){
             console.log(error);
             throw error;
-    
-        }else {
+        }
+        else {
+            console.log('create paypal payment');
+            console.log(payment);
             for(var index = 0; index < payment.links.length ; index ++){
                 if(payment.links(index).rel === 'approval'){
                     res.redirect(payment.links[index].href);
                 }
             }
         }
-    });
+    })
+
+
+    })
+
+
+
+
+
+    
 
     router.get('/execute',async(req,res)=>{
         var execute_payment_json ={
@@ -73,38 +88,29 @@ router.post ('/createPayment',async(req,res)=>{
                 }
             }]
         }
-        
+
+        const paymentId = req.query.paymentId;
         paypal.payment.execute(paymentId,execute_payment_json,function(error,payment){
-            if(err){
-                console.log(err);
-            } else{
+            if(error){
+                console.log(error);
+                throw error;
+            }
+            else{
                 console.log(JSON.stringify(payment));
-                const paymentId =req.query.paymentId;
                 res.redirect("http://return/?status =success&id="+payment.id + "&state=" + payment.state)
             }
+
+
         })
+        
+        
     })
 
 
-    try{
-        const payment = await paypal.payment.create(paymentData)
-        res.redirect(payment.links[1].href)
+   
 
-    }
+  
 
-    catch (error){
-        res.status(500).json({error:"payment cancelled"})
-    }
-
-    // router.get('/success',(req,res)=>{
-    //     res.send(200).json({message:"payment successfully"})
-    // })
-
-    // router.get('/cancel',(req,res)=>{
-    //     res.send(400).json({message:"payment cancelled"})
-    // })
-
-})
 
 
 module.exports = router;
