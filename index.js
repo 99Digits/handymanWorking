@@ -43,7 +43,7 @@ const Jobmangement = require('./api/JobManagement/JobMangementrouter')
 const notification = require('./api/AppNotification/appnotification.router')
   const otpverification = require('./api/verification/otpverification')
 const userreviewRouter =require('./api/userReview/reviewrouter')
-const paypalpayment  = require('./api/PaypalPayment/Paymentrouter')
+// const paypalpayment  = require('./api/PaypalPayment/Paymentrouter')
 app.get('/',(req,res)=>{
     res.send("hello my name is")
 })
@@ -62,7 +62,7 @@ app.use('/api/admin',adminlogin)
 app.use('/api/job',Jobmangement)
 app.use('/api/notification',notification)
 app.use('/api/review',userreviewRouter)
-app.use('/api/payment',paypalpayment)
+// app.use('/api/payment',paypalpayment)
 
 app.use('/api/otp',otpverification)
 
