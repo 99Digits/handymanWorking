@@ -142,10 +142,27 @@ Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
 })
 }
 
+function updateOnline (req,res) {
+  const body = req.body 
+  // const data ={is_active,emp_id}
+  Employeeservice.updateActiveStatus(body,(error,message)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({error:message})
+    }
+    else {
+      return res.status(200).json({success:1,message:message})
+    }
+  })
+}
+
+
+
 
 
 
 router.post('/empInsert', upload.single('emp_profile_pic'), EmployeeCreation);
-router.patch('/update',upload.single("emp_profile_pic"), EmployeeUpdation)
+router.patch('/update',upload.single("emp_profile_pic"), EmployeeUpdation);
+router.post('/online',updateOnline)
 
 module.exports = router;

@@ -127,7 +127,11 @@ function booking(req,res){
     serv_image_carpet: carpetImage && carpetImage.length > 0 ? carpetImage: null,
     serv_image_window: WindowservImage && WindowservImage.length > 0 ? WindowservImage : null,
     serv_image_gutter: GutterservImage && GutterservImage.length > 0 ? GutterservImage : null,
-    serv_image_driveway: driwayServImage && driwayServImage.length > 0 ? driwayServImage: null
+    serv_image_driveway: driwayServImage && driwayServImage.length > 0 ? driwayServImage: null,
+    total_amount,
+    tax_amt,
+    trip_fee,
+    booking_fee
   }
 
   

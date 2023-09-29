@@ -56,11 +56,27 @@ function updateEmployee(data, callback) {
     }
   });
 }
+function updateActiveStatus(data,callback){
+  pool.query(`update emp_creation set 
+  is_active =? where emp_id = ?`,[data.is_active,data.emp_id],(error,message)=>{
+    if(error){
+      return callback(error,"error occured")
+ 
+    }
+    else {
+      callback(null,"status updated ")
+    }
+  }
+  )
+}
+
 
 
 module.exports = {
   checkIfEmailExists,
   insertEmployee,
   updateEmployee,
-  checkIfupdateEmailExists
+  checkIfupdateEmailExists,
+  updateActiveStatus
+
 };

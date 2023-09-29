@@ -1,8 +1,8 @@
-const router = require("express").Router();
-const {checkEmpAvailbility,getAssistanceMessge} = require('./Notification.controller')
+// const router = require("express").Router();
+// const {checkEmpAvailbility,getAssistanceMessge} = require('./Notification.controller')
 
-router.post('/loc',checkEmpAvailbility)
-router.get('/msg',getAssistanceMessge)
+// router.post('/loc',checkEmpAvailbility)
+// router.get('/msg',getAssistanceMessge)
 
 
 
@@ -12,7 +12,7 @@ router.get('/msg',getAssistanceMessge)
 // // Create a new OneSignal client with your API key and App ID
 // const client = new OneSignal.Client({
 //   userAuthKey: '',
-//   app: { appAuthKey: 'YOUR_ONESIGNAL_APP_AUTH_KEY', appId: '' },
+//   app: { appAuthKey: 'YOUR_ONESIGNAL_APP_AUTH_KEY', appId:  },
 // });
 
 // // Define the notification content
@@ -31,5 +31,13 @@ router.get('/msg',getAssistanceMessge)
 
 
 
-module.exports = router;
+// module.exports = router;
 
+const notificationcontroll = require('./Notification.controller')
+
+const express = require('express')
+const router = express.Router()
+
+router.get('/get',notificationcontroll.sendpushNotification)
+
+module.exports =router;

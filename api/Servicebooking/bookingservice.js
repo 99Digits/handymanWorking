@@ -15,7 +15,11 @@ function serviceboking(data, callback) {
   serv_image_carpet,
   serv_image_window,
   serv_image_gutter,
-  serv_image_driveway) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  serv_image_driveway,
+  total_amount,
+  tax_amt,
+  trip_fee,
+  booking_fee) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   [data.user_id,
   data.parsearray,
   data.serv_type_slno,
@@ -29,14 +33,18 @@ function serviceboking(data, callback) {
   data.serv_image_carpet,
   data.serv_image_window,
   data.serv_image_gutter,
-  data.serv_image_driveway],
+  data.serv_image_driveway,
+	data.total_amount,
+  data.tax_amt,
+  data.trip_fee,
+  data.booking_fee],
 
 (error, results, fields) => {
 
   if (error) {
     return callback(error);
   }
-  return callback(null, "service booked successfully");
+  return callback(null, "Booked successfully");
 }
  )
 }
