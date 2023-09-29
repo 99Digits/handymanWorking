@@ -3,7 +3,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
-const Employeeservice  = require('./Employeeservice')
+const Employeeservice  = require('./Employeeservice');
+const { log } = require('console');
 
 
 const storage = multer.diskStorage({
@@ -106,7 +107,6 @@ function EmployeeUpdation(req,res){
     isuence_id,
     trining_course,
     emp_email,
-    is_active,
     emp_id
   } = req.body;
 Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
@@ -126,7 +126,6 @@ Employeeservice.checkIfupdateEmailExists(emp_email,(err,message)=>{
     trining_course,
     emp_email,
     emp_profile_pic,
-    is_active,
     emp_id
   };
 
@@ -156,6 +155,18 @@ function updateOnline (req,res) {
   })
 }
 
+function getEmpOnline (req,res){
+  const id = req.params.id
+  Employeeservice.getEmployeeStatus(id,(error,results)=>{
+    if(error){
+      return res.status(400).json({message:error})
+    }
+    else {
+      return res.status(200).json({data:results})
+    }
+  })
+}
+
 
 
 
@@ -164,5 +175,6 @@ function updateOnline (req,res) {
 router.post('/empInsert', upload.single('emp_profile_pic'), EmployeeCreation);
 router.patch('/update',upload.single("emp_profile_pic"), EmployeeUpdation);
 router.post('/online',updateOnline)
+router.get('/status/:id',getEmpOnline)
 
 module.exports = router;

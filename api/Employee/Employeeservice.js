@@ -58,7 +58,7 @@ function updateEmployee(data, callback) {
 }
 function updateActiveStatus(data,callback){
   pool.query(`update emp_creation set 
-  is_active =? where emp_id = ?`,[data.is_active,data.emp_id],(error,message)=>{
+  is_active =? where emp_id = ?`,[data.is_active,data.emp_id],(error,results)=>{
     if(error){
       return callback(error,"error occured")
  
@@ -69,6 +69,18 @@ function updateActiveStatus(data,callback){
   }
   )
 }
+function getEmployeeStatus(id,callback){
+  pool.query(`select is_active from emp_creation where emp_id = ?`,
+
+  [id],(error,results)=>{
+    if(error){
+     return callback (error)
+    }
+    else {
+      callback(null,results)
+    }
+  })
+}
 
 
 
@@ -77,6 +89,7 @@ module.exports = {
   insertEmployee,
   updateEmployee,
   checkIfupdateEmailExists,
-  updateActiveStatus
+  updateActiveStatus,
+  getEmployeeStatus
 
 };
